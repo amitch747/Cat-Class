@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 3
+names: ['Finn', 'Rue', 'Yeager']
+
+roboflow:
+  workspace: catclass
+  project: catclass-6brwc
+  version: 4
+  license: MIT
+  url: https://universe.roboflow.com/catclass/catclass-6brwc/dataset/4
