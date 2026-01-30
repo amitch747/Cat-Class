@@ -1,0 +1,10 @@
+path: /home/aiden/dev/ml/catclass/data
+
+train: train/images
+val: valid/images
+
+nc: 3
+names:
+  0: Finn
+  1: Rue
+  2: Yeager
