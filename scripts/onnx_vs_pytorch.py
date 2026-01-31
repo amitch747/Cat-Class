@@ -68,11 +68,12 @@ else:
     torch_predictions = torch_outputs
 
 
-assert len(torch_predictions) == len(onnxruntime_outputs)
-
 # 10 for batch, 7 for 3 classes and 4 box dimensions, 8400 anchor points
 print(f"Torch Predictions Shape: {torch_predictions.shape}")
 print(f"ONNX Outputs Shape: {onnxruntime_outputs.shape}")
+
+assert len(torch_predictions) == len(onnxruntime_outputs)
+
 
 # Compare output |actual - expected| <= atol + rtol * |expected|
 for torch_pred, onnx_out in zip(torch_predictions, onnxruntime_outputs):
