@@ -2,13 +2,11 @@ import onnx
 import torch
 from ultralytics import YOLO
 from pathlib import Path
-
-# Backout from scripts and grab best model
-SCRIPT_DIR = Path(__file__).resolve().parent
-MODEL_PATH = SCRIPT_DIR.parent / "runs" / "detect" / "train" / "weights" / "best.pt"
+import sys
+from config import PYTORCH_MODEL_PATH, ONNX_MODEL_PATH, PROJECT_ROOT
 
 try:
-    yolo_model = YOLO(str(MODEL_PATH))
+    yolo_model = YOLO(str(PYTORCH_MODEL_PATH))
     print("Model loaded")
 except Exception as e:
     print("Couldnt find model")
@@ -19,12 +17,12 @@ example_inputs = torch.randn(1, 3, 640, 640)
 
 # Legacy exporter (dynamo=False) for yolov8 (too old)
 torch.onnx.export(
-    torch_model, 
-    example_inputs, 
-    "cat_class_basic.onnx",
+    torch_model,
+    example_inputs,
+    str(ONNX_MODEL_PATH),  # Export to models/cat_class_v1.onnx
     export_params=True,
     opset_version=14,  # Recommended for YOLOv8 apparently
-    do_constant_folding=True, 
+    do_constant_folding=True,
     input_names=['images'],
     output_names=['output0'],
     dynamic_axes={
@@ -32,3 +30,5 @@ torch.onnx.export(
         'output0': {0: 'batch_size'}   # Output batch can vary
     },
 )
+
+print(f"ONNX model exported to: {ONNX_MODEL_PATH}")

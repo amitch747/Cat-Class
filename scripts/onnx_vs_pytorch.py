@@ -1,3 +1,6 @@
+"""
+Script for comparing best.onnx to best.py
+"""
 import onnxruntime
 import numpy as np
 import torch
@@ -5,23 +8,28 @@ from pathlib import Path
 from ultralytics import YOLO
 import random
 import cv2
-from config import CLASS_NAMES, CLASS_COLORS
-
+from config import (PYTORCH_MODEL_PATH, 
+                    ONNX_MODEL_PATH, 
+                    DATA_DIR,
+                    CLASS_NAMES, 
+                    CLASS_COLORS,
+                    CONFIDENCE_THRESHOLD,
+                    NMS_IOU_THRESHOLD)
+   
 # Get 10 random images
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parent
-IMAGES_DIR = PROJECT_ROOT / 'data' / 'valid' / 'images'
+IMAGES_DIR = DATA_DIR / 'valid' / 'images'
 image_files = list(IMAGES_DIR.glob("*.jpg")) + list(IMAGES_DIR.glob("*.png"))
 random.seed(747)
 trial_paths = random.sample(image_files, 10)
 
 # Get onnx and torch models
-ONNX_PATH = SCRIPT_DIR / "cat_class_basic.onnx"
-yolo_model = YOLO(PROJECT_ROOT / "runs/detect/train/weights/best.pt")
+yolo_model = YOLO(PYTORCH_MODEL_PATH)
 torch_model = yolo_model.model.eval()
 
 # Setup onnx inference session
-ort_sesh = onnxruntime.InferenceSession(ONNX_PATH, providers=["CPUExecutionProvider"]) # CPU is better for testing?
+ort_sesh = onnxruntime.InferenceSession(ONNX_MODEL_PATH, providers=["CPUExecutionProvider"]) # CPU is better for testing?
 
 # Process images for yolo
 def process_for_yolo(path: Path) -> np.ndarray:
@@ -83,7 +91,7 @@ max_scores = np.max(scores, axis=1)  # (8400,) highest score for the 3 cats
 class_ids = np.argmax(scores, axis=1)  # (8400,) which cat has highest score
 
 # Filter for weak class scores
-mask = max_scores > 0.5 
+mask = max_scores > CONFIDENCE_THRESHOLD
 final_boxes_raw = predictions[mask, :4] # For the remaining anchor points, 
 final_scores_raw = max_scores[mask]
 final_class_ids = class_ids[mask]
@@ -127,7 +135,9 @@ if len(final_boxes_raw) > 0:
 
     # Filter out the extra boxes (IoU over best box)
     import torchvision
-    keep = torchvision.ops.nms(torch.from_numpy(boxes_xyxy), torch.from_numpy(final_scores_raw), 0.5)
+    keep = torchvision.ops.nms(torch.from_numpy(boxes_xyxy), 
+                               torch.from_numpy(final_scores_raw), 
+                               NMS_IOU_THRESHOLD)
     
     # Reshape incase 1 box returns shape of (4,)
     final_boxes = boxes_xyxy[keep].reshape(-1, 4)
