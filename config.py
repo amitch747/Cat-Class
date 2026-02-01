@@ -8,6 +8,7 @@ MODELS_DIR = PROJECT_ROOT / "models"
 # Best Models
 PYTORCH_MODEL_PATH = MODELS_DIR / "best.pt"
 ONNX_MODEL_PATH = MODELS_DIR / "best.onnx"
+ENGINE_MODEL_PATH = MODELS_DIR / "best.engine"
 
 CLASS_LIST = ['Finn', 'Rue', 'Yeager']
 CLASS_NAMES = {
@@ -26,3 +27,6 @@ IMG_SIZE = 640
 NUM_CLASSES = len(CLASS_NAMES)
 CONFIDENCE_THRESHOLD = 0.5
 NMS_IOU_THRESHOLD = 0.5
+
+INPUT_NAME = "images"
+OUTPUT_NAME = "output0"
