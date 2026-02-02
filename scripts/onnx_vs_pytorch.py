@@ -8,7 +8,7 @@ from pathlib import Path
 from ultralytics import YOLO
 import random
 import cv2
-from catclass.config import (PYTORCH_MODEL_PATH, 
+from util.config import (PYTORCH_MODEL_PATH, 
                     ONNX_MODEL_PATH, 
                     DATA_DIR,
                     CLASS_NAMES, 
