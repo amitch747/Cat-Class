@@ -2,7 +2,7 @@
 CatClass
 </H1>
 <p align="center">
-  <video src="fullbod.mp4" width="100%" autoplay loop muted playsinline></video>
+  <video src="./fullbod.mp4" width="100%" autoplay loop muted playsinline></video>
 </p>
 
 
