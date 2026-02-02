@@ -1,12 +1,14 @@
-<H1 align="center">
-CatClass
-</H1>
-<p align="center">
-  <video src="fullbod.mp4" width="100%" autoplay loop muted playsinline></video>
-</p>
+# CAT CLASS
+![Descriptive alt text](./fullbod.gif)
 
 
-# UNDER CONSTRUCTION
+## Jetson Setup
+Jetson should already have required libraries so just run
+
+`python3 -m scripts.convert_to_trt`
+
+`python3 trt_inference.py`
+
 
 
 ## Troubleshooting
@@ -22,11 +24,3 @@ lsusb
 ls /dev/video*
 sudo chmod 666 /dev/video0
 ```
-
-
-## Jetson Setup
-Jetson should already have required libraries so just run
-
-`python3 -m scripts.convert_to_trt`
-
-`python3 trt_inference.py`
