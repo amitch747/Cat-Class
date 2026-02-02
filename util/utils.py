@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from config import (CLASS_COLORS, 
+from util.config import (CLASS_COLORS, 
                     CLASS_NAMES, 
                     CONFIDENCE_THRESHOLD, 
                     NMS_IOU_THRESHOLD,

@@ -3,8 +3,7 @@ import numpy as np
 import tensorrt as trt
 import pycuda.driver as cuda
 import time
-from pathlib import Path
-from config import (ENGINE_MODEL_PATH,
+from util.config import (ENGINE_MODEL_PATH,
                     IMG_SIZE, 
                     NUM_CLASSES, 
                     CONFIDENCE_THRESHOLD, 
@@ -14,7 +13,7 @@ from config import (ENGINE_MODEL_PATH,
                     INPUT_NAME,
                     OUTPUT_NAME
 )
-from utils import (preprocess_frame,
+from util.utils import (preprocess_frame,
                    postprocess_frame,
                    draw_bboxes
 )
@@ -84,14 +83,6 @@ class TensorRTInference:
         return main_output['host']
 
 
-        self.stream.synchronize()
-
-        return self.output_host
-
-
-
-
-
 def main():
 
     if not ENGINE_MODEL_PATH.exists():
@@ -107,10 +98,11 @@ def main():
     # Prepare inference engine
     trt_engine = TensorRTInference(ENGINE_MODEL_PATH)
 
+    # HTTP
     url = "http://10.0.0.18:4747/video"
     cap = cv2.VideoCapture(url)
 
-    # OpenCV setup
+    # Webcam
     # cap = cv2.VideoCapture(0, cv2.CAP_V4L2)
     # cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
     # cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)

@@ -4,7 +4,7 @@ import onnxruntime as ort
 import torch
 import torchvision
 import time
-from config import ONNX_MODEL_PATH, CLASS_NAMES, CLASS_COLORS, CONFIDENCE_THRESHOLD, NMS_IOU_THRESHOLD
+from util.config import ONNX_MODEL_PATH, CLASS_NAMES, CLASS_COLORS, CONFIDENCE_THRESHOLD, NMS_IOU_THRESHOLD
 
 # Setup Onnx Session
 providers = ['CUDAExecutionProvider', 'CPUExecutionProvider'] # Try to get GPU

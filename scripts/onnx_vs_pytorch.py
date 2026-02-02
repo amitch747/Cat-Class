@@ -8,7 +8,7 @@ from pathlib import Path
 from ultralytics import YOLO
 import random
 import cv2
-from config import (PYTORCH_MODEL_PATH, 
+from catclass.config import (PYTORCH_MODEL_PATH, 
                     ONNX_MODEL_PATH, 
                     DATA_DIR,
                     CLASS_NAMES, 
@@ -19,9 +19,9 @@ from config import (PYTORCH_MODEL_PATH,
 # Get 10 random images
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parent
-IMAGES_DIR = DATA_DIR / 'valid' / 'images'
+IMAGES_DIR = DATA_DIR / 'test' / 'images'
 image_files = list(IMAGES_DIR.glob("*.jpg")) + list(IMAGES_DIR.glob("*.png"))
-random.seed(747)
+random.seed(1)
 trial_paths = random.sample(image_files, 10)
 
 # Get onnx and torch models

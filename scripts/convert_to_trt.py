@@ -1,6 +1,6 @@
 import tensorrt as trt
 from pathlib import Path
-from config import ONNX_MODEL_PATH, ENGINE_MODEL_PATH
+from util.config import ONNX_MODEL_PATH, ENGINE_MODEL_PATH
 
 # Build settings
 FP16_MODE = True  # Half precision for the jetson's tensor cores - should give 2x speed up for half the memory

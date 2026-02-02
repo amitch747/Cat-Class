@@ -1,0 +1,4 @@
+- a single inference script with argparse
+- better readme
+- gather all new data using video frame extraction
+    - literally stream video and great more data from that

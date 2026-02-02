@@ -1,9 +1,7 @@
 import onnx
 import torch
 from ultralytics import YOLO
-from pathlib import Path
-import sys
-from config import PYTORCH_MODEL_PATH, ONNX_MODEL_PATH, PROJECT_ROOT
+from catclass.config import PYTORCH_MODEL_PATH, ONNX_MODEL_PATH
 
 try:
     yolo_model = YOLO(str(PYTORCH_MODEL_PATH))

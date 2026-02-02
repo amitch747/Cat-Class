@@ -1,0 +1,6 @@
+[project]
+name = "catclass"
+version = "0.5.0"
+
+[tool.setuptools]
+packages = ["util"]
