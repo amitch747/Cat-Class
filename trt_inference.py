@@ -107,13 +107,15 @@ def main():
     # Prepare inference engine
     trt_engine = TensorRTInference(ENGINE_MODEL_PATH)
 
+    url = "http://10.0.0.18:4747/video"
+    cap = cv2.VideoCapture(url)
 
     # OpenCV setup
-    cap = cv2.VideoCapture(0, cv2.CAP_V4L2)
-    cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
-    cap.set(cv2.CAP_PROP_FPS, 30)
+    # cap = cv2.VideoCapture(0, cv2.CAP_V4L2)
+    # cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
+    # cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+    # cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+    # cap.set(cv2.CAP_PROP_FPS, 30)
 
     if not cap.isOpened():
         print("Error: Could not open camera")
@@ -159,3 +161,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

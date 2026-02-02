@@ -84,7 +84,7 @@ def draw_bboxes(frame, boxes, scores, ids):
         name = CLASS_NAMES[id]
         x1, y1, x2, y2 = map(int, box)
 
-        cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
+        cv2.rectangle(frame, (x1, y1), (x2, y2), color, 3)
         cv2.putText(frame, name, (x1, y1-7),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
         cv2.putText(frame, f"{(score):.2f}", (x2, y2+15),
