@@ -1,4 +1,7 @@
-# CAT CLASS
+<H1 align="center">
+CatClass
+</H1>
+
 ![Descriptive alt text](./fullbod.gif)
 
 
